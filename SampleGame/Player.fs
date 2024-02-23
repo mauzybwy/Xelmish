@@ -1,4 +1,4 @@
-module Snake
+module Player
 
 // *****************************************************************************
 // * Import
@@ -82,7 +82,7 @@ let buildGui model dispatch =
         fun _ -> set { model with MoveAmount = viewModel.MoveAmount.Value }
 
     let moveAmountSlider = fun () ->
-        if ImGui.SliderInt("", viewModel.MoveAmount, 0, 10) then setMoveAmount()
+        if ImGui.SliderInt("", viewModel.MoveAmount, 1, 10) then setMoveAmount()
 
     Gui.app
         [ Gui.window
@@ -116,7 +116,7 @@ let view model dispatch =
     [
         // Objects
         imgui (buildGui model dispatch)
-        image "head" Colour.White (model.W, model.H) (model.X, model.Y)
+        image "player" Colour.White (model.W, model.H) (model.X, model.Y)
 
         // I/O
         whilekeydown Keys.Up (fun _ -> dispatch (MoveUp))

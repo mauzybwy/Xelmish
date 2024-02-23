@@ -4,28 +4,28 @@ open System.IO;
 open Common;
 
 type Model = {
-    snake: Snake.Model
+    player: Player.Model
 }
 
-let init () = { snake = Snake.init () }
+let init () = { player = Player.init () }
 
 type Message =
-    | SnakeMessage of Snake.Message
+    | PlayerMessage of Player.Message
 
 let update message model =
     match message with
-    | SnakeMessage message ->
-        { model with snake = Snake.update message model.snake }
+    | PlayerMessage message ->
+        { model with player = Player.update message model.player }
 
 let view model dispatch =
     [
-       yield! Snake.view model.snake (SnakeMessage >> dispatch)
+       yield! Player.view model.player (PlayerMessage >> dispatch)
     ]
 
 [<EntryPoint>]
 let main _ =
     let assetsToLoad =
-        [ AsepriteTexture ("head", Path.Combine("Content", "Art", "head.aseprite")) ]
+        [ AsepriteTexture ("player", Path.Combine("Content", "Art", "player.aseprite")) ]
     
     Program.mkSimple init update view
     |> Xelmish.Program.runSimpleGameLoop assetsToLoad (playField.W, playField.H) Colour.Black
