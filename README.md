@@ -8,4 +8,4 @@ A mashed up version of these great packages, plus some tweaks.
 Also added [Monogame Aseprite](https://github.com/AristurtleDev/monogame-aseprite)
 to Xelmish for better DX.
 
-[](https://github.com/mauzybwy/Xelmish.ImGui/blob/master/demo.gif)
+![](https://github.com/mauzybwy/Xelmish.ImGui/blob/master/demo.gif)
