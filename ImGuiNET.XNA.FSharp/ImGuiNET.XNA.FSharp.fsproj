@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <PackageReference Include="ImGui.NET" Version="1.90.1.1" />
-    <ProjectReference Include="..\gui\ImGuiNET.XNA.csproj" />
+    <ProjectReference Include="..\ImGuiNET.XNA\ImGuiNET.XNA.csproj" />
   </ItemGroup>
 
 </Project>

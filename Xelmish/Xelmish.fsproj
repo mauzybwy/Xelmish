@@ -22,15 +22,13 @@
     <Compile Include="Viewables.fs" />
     <Compile Include="UI.fs" />
     <Compile Include="GameLoop.fs" />
-    <!-- <Compile Include="ImGuiGameLoop.fs" /> -->
-    <!-- <Compile Include="ImGuiWrapper.fs" /> -->
     <Compile Include="Program.fs" />
 
     <PackageReference Include="Elmish" Version="4.1.0" />
     <PackageReference Include="MonoGame.Aseprite" Version="5.1.2" />
     <PackageReference Include="ImGui.NET" Version="1.90.1.1" />
-    <ProjectReference Include="..\gui\ImGuiNET.XNA.csproj" />
-    <ProjectReference Include="..\gui-fs\ImGuiNET.XNA.FSharp.fsproj" />
+    <ProjectReference Include="..\ImGuiNET.XNA\ImGuiNET.XNA.csproj" />
+    <ProjectReference Include="..\ImGuiNET.XNA.FSharp\ImGuiNET.XNA.FSharp.fsproj" />
 
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.1.303">
       <PrivateAssets>All</PrivateAssets>

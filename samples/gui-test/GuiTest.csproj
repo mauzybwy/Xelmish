@@ -9,6 +9,6 @@
   <ItemGroup>
     <PackageReference Include="ImGui.NET" Version="1.90.1.1" />
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.0.1641" />
-    <ProjectReference Include="..\..\gui\ImGuiNET.XNA.csproj" />
+    <ProjectReference Include="..\..\ImGuiNET.XNA\ImGuiNET.XNA.csproj" />
   </ItemGroup>
 </Project>
