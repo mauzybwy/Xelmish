@@ -1,6 +1,6 @@
-# Xelmish.ImGui - XNA + Elmish + ImGui!
+# Xelmish.ImGui - Monogame + Elmish + ImGui!
 
-A mashed up version of these great packages, plus some tweaks.
+A mashed up version of these great packages, plus some tweaks:
 [Xelmish](https://github.com/ChrisPritchard/Xelmish)
 [ImGui.NET](https://github.com/ImGuiNET/ImGui.NET)
 [ImGui.NET.FSharp](https://github.com/yamen/ImGui.NET.FSharp)
