@@ -4,6 +4,9 @@ open Microsoft.Xna.Framework.Input
 open Microsoft.Xna.Framework.Graphics
 open Microsoft.Xna.Framework.Audio
 open Microsoft.Xna.Framework.Media
+open MonoGame.Aseprite;
+open MonoGame.Aseprite.Content.Processors;
+open MonoGame.Aseprite.Sprites;
 
 // Aliases here so that games don't need to understand/reference XNA namespaces (also to fix the spelling)
 
@@ -57,6 +60,8 @@ and Loadable =
 | FileMusic of key:string * path:string
 /// key (how it is referenced) and path (full relative path (without extension) to music source)
 | PipelineMusic of key:string * path:string
+/// key (how it is referenced) and path (full relative path to texture file)
+| AsepriteTexture of key:string * path:string
 
 /// Current and previous state of input devices
 type Inputs = {

@@ -44,7 +44,10 @@ let text font (fontSize: float) colour (ox: float, oy: float) (text: string) (x,
         let scale = let v = float32 fontSize / measured.Y in Vector2(v, v)
         let origin = Vector2 (float32 ox * measured.X * scale.X, float32 oy * measured.Y * scale.Y)
         let position = Vector2.Add(origin, vector2 x y)
-        spriteBatch.DrawString (font, text, position, colour, 0.f, Vector2.Zero, scale, SpriteEffects.None, 0.f)) 
+        spriteBatch.DrawString (font, text, position, colour, 0.f, Vector2.Zero, scale, SpriteEffects.None, 0.f))
+
+let imgui gui =
+    OnDraw (fun _ _ _  -> gui())
 
 /// Play the next sound in a sound queue (a Queue<string> containing keys of sound effects to play)
 let playQueuedSound (soundQueue: KeyQueue) =

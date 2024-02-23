@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <AssemblyName>ImGuiNET.XNA.FSharp</AssemblyName>
+    <RootNamespace>ImGuiNET.XNA.FSharp</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Styles.fs" />
+    <!-- <Compile Include="Core.fs" /> -->
+    <Compile Include="Gui.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ImGui.NET" Version="1.90.1.1" />
+    <ProjectReference Include="..\gui\ImGuiNET.XNA.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -7,6 +7,11 @@ open Microsoft.Xna.Framework.Input
 open Microsoft.Xna.Framework.Audio
 open Microsoft.Xna.Framework.Media
 open Model
+open MonoGame.Aseprite;
+open MonoGame.Aseprite.Content.Processors;
+open ImGuiNET;
+open ImGuiNET.XNA
+open ImGuiNET.XNA.FSharp;
 
 /// GameLoop is an inherited implementation of XNA's Game class
 type GameLoop (config: GameConfig) as this = 
@@ -17,6 +22,7 @@ type GameLoop (config: GameConfig) as this =
     // these are set during LoadContent
     let mutable spriteBatch = Unchecked.defaultof<_>
     let mutable assets = Unchecked.defaultof<_>
+    let mutable imguiRenderer = Unchecked.defaultof<ImGuiRenderer>
     
     // this is set and updated every Update (60 times a second)
     let mutable inputs = {
@@ -49,6 +55,9 @@ type GameLoop (config: GameConfig) as this =
     override __.Initialize () = 
         // Set up overall run settings here, like resolution, screen type and fps
 
+        imguiRenderer <- new ImGuiRenderer(this)
+        imguiRenderer.RebuildFontAtlas()
+
         let setRes w h = 
             graphics.PreferredBackBufferWidth <- w
             graphics.PreferredBackBufferHeight <- h
@@ -72,6 +81,7 @@ type GameLoop (config: GameConfig) as this =
         graphics.SynchronizeWithVerticalRetrace <- true 
 
         graphics.ApplyChanges()
+
         base.Initialize() 
 
     override __.LoadContent () = 
@@ -88,6 +98,10 @@ type GameLoop (config: GameConfig) as this =
             | PipelineTexture (key, path) ->
                 let texture = this.Content.Load<Texture2D> path
                 { assets with textures = Map.add key texture assets.textures }
+            | AsepriteTexture (key, path) ->
+                let aseFile = AsepriteFile.Load(path)
+                let aseprite = SpriteProcessor.Process(this.GraphicsDevice, aseFile, 0)
+                { assets with textures = Map.add key aseprite.TextureRegion.Texture assets.textures }
             | PipelineFont (key, path) -> 
                 let font = this.Content.Load<SpriteFont> path
                 { assets with fonts = Map.add key font assets.fonts }
@@ -134,14 +148,64 @@ type GameLoop (config: GameConfig) as this =
             | :? QuitGame -> __.Exit()
 
     override __.Draw gameTime =
+        // Clear
         Option.iter this.GraphicsDevice.Clear config.clearColour
+
+        // ImGui Test
+        // imguiRenderer.BeforeLayout(gameTime);
+        // let gui = Gui.app [
+        //     Gui.window "Demo" [
+        //         Gui.text "hello, world"
+        //     ]
+        // ]
+        // gui()
+
+        // let gui2 = Gui.app [
+        //     Gui.window "Hmmmmmm" [
+        //         Gui.text "hello, world"
+        //     ]
+        // ]
+        // gui2()
+        // imguiRenderer.AfterLayout();
 
         // by default, all sprites are drawing on .End() in a batch
         // immediate changes this so they are drawn as called, which allows us to
         // change the sampler state (e.g. for pixel graphics vs text) between different sprite calls
-        spriteBatch.Begin (sortMode = SpriteSortMode.Immediate, 
+        spriteBatch.Begin (sortMode = SpriteSortMode.Immediate,
                             samplerState = SamplerState.PointClamp)
+
+        imguiRenderer.BeforeLayout(gameTime);
+
+        //  Gui.window "Hmmmmmm" [
+        //     Gui.text "hello, world"
+        //     Gui.text $"{ImGui.GetIO().Framerate} FPS"
+        // ]()
 
         for drawFunc in drawable do drawFunc assets inputs spriteBatch
 
+        imguiRenderer.AfterLayout();
+
         spriteBatch.End ()
+
+
+    // override __.Draw gameTime value =
+        // ()
+        // match base.Model with
+        // | Some model ->
+
+        // let io = ImGui.GetIO ()
+        // io.DeltaTime <- float32 gameTime.ElapsedGameTime.TotalSeconds
+        // let presentParams = this.GraphicsDevice.PresentationParameters
+        // updateInput presentParams
+        // ImGui.NewFrame ()
+
+        // ImGui.PushFont font
+
+        // lastUIModel <- (getUI model ||> List.fold (fun last element -> element last getTexure))
+
+        // ImGui.Render ()
+        // renderDrawData presentParams (ImGui.GetDrawData ())
+
+        // ()
+
+        // | _ -> ()

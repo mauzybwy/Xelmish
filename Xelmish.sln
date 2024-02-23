@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Xelmish", "src\Xelmish.fsproj", "{E03C5917-B17D-43C6-AB71-680F1178C4AB}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Xelmish", "src\Xelmish.fsproj", "{E03C5917-B17D-43C6-AB71-680F1178C4AB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B9ABEDC0-D2D9-4892-BEB6-7C2B26F8DC25}"
 EndProject
@@ -18,17 +18,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{376DD74C-0
 		SIL Open Font License.txt = SIL Open Font License.txt
 	EndProjectSection
 EndProject
-Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "single-counter", "samples\single-counter\single-counter.fsproj", "{AC38ED44-CC94-45D9-8909-A889CC6E7131}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "single-counter", "samples\single-counter\single-counter.fsproj", "{AC38ED44-CC94-45D9-8909-A889CC6E7131}"
 EndProject
-Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "sub-model", "samples\sub-model\sub-model.fsproj", "{22D97351-784C-48D6-9CC7-206397293865}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "sub-model", "samples\sub-model\sub-model.fsproj", "{22D97351-784C-48D6-9CC7-206397293865}"
 EndProject
-Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "tetris-clone", "samples\tetris-clone\tetris-clone.fsproj", "{D3DDC88F-ED11-4D1D-8F72-36D7E96EB5F7}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "tetris-clone", "samples\tetris-clone\tetris-clone.fsproj", "{D3DDC88F-ED11-4D1D-8F72-36D7E96EB5F7}"
 EndProject
-Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "space-invaders-clone", "samples\space-invaders-clone\space-invaders-clone.fsproj", "{07B7E788-E4EF-42CE-B0E8-02C01A60B2C0}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "space-invaders-clone", "samples\space-invaders-clone\space-invaders-clone.fsproj", "{07B7E788-E4EF-42CE-B0E8-02C01A60B2C0}"
 EndProject
-Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "xelmish-first", "samples\xelmish-first\xelmish-first.fsproj", "{8E986E34-0BA2-4F04-8516-4EEA0CA56226}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "xelmish-first", "samples\xelmish-first\xelmish-first.fsproj", "{8E986E34-0BA2-4F04-8516-4EEA0CA56226}"
 EndProject
-Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "single-counter-directx", "samples\single-counter-directx\single-counter-directx.fsproj", "{C1F448A9-199A-4746-936F-3C6928471A64}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "single-counter-directx", "samples\single-counter-directx\single-counter-directx.fsproj", "{C1F448A9-199A-4746-936F-3C6928471A64}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "platformer", "samples\platformer\platformer.fsproj", "{B2E1A81B-E820-4002-8EDB-5B4E9917A093}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "snake-sharp", "samples\snake-sharp\snake-sharp.fsproj", "{800D347A-ECA9-42FF-A919-B1CB2BD5AB8D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -124,6 +128,30 @@ Global
 		{C1F448A9-199A-4746-936F-3C6928471A64}.Release|x64.Build.0 = Release|Any CPU
 		{C1F448A9-199A-4746-936F-3C6928471A64}.Release|x86.ActiveCfg = Release|Any CPU
 		{C1F448A9-199A-4746-936F-3C6928471A64}.Release|x86.Build.0 = Release|Any CPU
+		{B2E1A81B-E820-4002-8EDB-5B4E9917A093}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2E1A81B-E820-4002-8EDB-5B4E9917A093}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2E1A81B-E820-4002-8EDB-5B4E9917A093}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B2E1A81B-E820-4002-8EDB-5B4E9917A093}.Debug|x64.Build.0 = Debug|Any CPU
+		{B2E1A81B-E820-4002-8EDB-5B4E9917A093}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B2E1A81B-E820-4002-8EDB-5B4E9917A093}.Debug|x86.Build.0 = Debug|Any CPU
+		{B2E1A81B-E820-4002-8EDB-5B4E9917A093}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2E1A81B-E820-4002-8EDB-5B4E9917A093}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2E1A81B-E820-4002-8EDB-5B4E9917A093}.Release|x64.ActiveCfg = Release|Any CPU
+		{B2E1A81B-E820-4002-8EDB-5B4E9917A093}.Release|x64.Build.0 = Release|Any CPU
+		{B2E1A81B-E820-4002-8EDB-5B4E9917A093}.Release|x86.ActiveCfg = Release|Any CPU
+		{B2E1A81B-E820-4002-8EDB-5B4E9917A093}.Release|x86.Build.0 = Release|Any CPU
+		{800D347A-ECA9-42FF-A919-B1CB2BD5AB8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{800D347A-ECA9-42FF-A919-B1CB2BD5AB8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{800D347A-ECA9-42FF-A919-B1CB2BD5AB8D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{800D347A-ECA9-42FF-A919-B1CB2BD5AB8D}.Debug|x64.Build.0 = Debug|Any CPU
+		{800D347A-ECA9-42FF-A919-B1CB2BD5AB8D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{800D347A-ECA9-42FF-A919-B1CB2BD5AB8D}.Debug|x86.Build.0 = Debug|Any CPU
+		{800D347A-ECA9-42FF-A919-B1CB2BD5AB8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{800D347A-ECA9-42FF-A919-B1CB2BD5AB8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{800D347A-ECA9-42FF-A919-B1CB2BD5AB8D}.Release|x64.ActiveCfg = Release|Any CPU
+		{800D347A-ECA9-42FF-A919-B1CB2BD5AB8D}.Release|x64.Build.0 = Release|Any CPU
+		{800D347A-ECA9-42FF-A919-B1CB2BD5AB8D}.Release|x86.ActiveCfg = Release|Any CPU
+		{800D347A-ECA9-42FF-A919-B1CB2BD5AB8D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -136,6 +164,8 @@ Global
 		{07B7E788-E4EF-42CE-B0E8-02C01A60B2C0} = {E0C3EC12-893D-4F20-B609-F38FA0F896B6}
 		{8E986E34-0BA2-4F04-8516-4EEA0CA56226} = {E0C3EC12-893D-4F20-B609-F38FA0F896B6}
 		{C1F448A9-199A-4746-936F-3C6928471A64} = {E0C3EC12-893D-4F20-B609-F38FA0F896B6}
+		{B2E1A81B-E820-4002-8EDB-5B4E9917A093} = {E0C3EC12-893D-4F20-B609-F38FA0F896B6}
+		{800D347A-ECA9-42FF-A919-B1CB2BD5AB8D} = {E0C3EC12-893D-4F20-B609-F38FA0F896B6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7AA55871-B8BC-47CB-AE1C-75AB843FED9A}

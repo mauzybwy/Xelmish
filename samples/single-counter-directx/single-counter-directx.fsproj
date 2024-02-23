@@ -23,7 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Xelmish.fsproj" />
+    <ProjectReference Include="..\..\src\Xelmish.fsproj">
+      <ReferenceSourceTarget></ReferenceSourceTarget>
+    </ProjectReference>
     <PackageReference Include="Elmish" Version="3.1.0" />
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303" />
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.1.303" />
