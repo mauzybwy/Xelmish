@@ -44,6 +44,10 @@ module Gui =
         if (ImGui.Checkbox(label, &var.contents)) then
             onClick var.Value
 
+    //let sliderInt (label: string) (var: int ref)
+    let after thing onClick = fun _ ->
+        if thing() then onClick()
+
     let text (value: string) = fun () ->
         ImGui.Text(value)
 
@@ -125,3 +129,6 @@ module Operators =
 
     let inline (++++) (f1:ImGuiBuilder) (f2:ImGuiBuilder) =
         Gui.sameLine2 f1 10f f2
+
+    let inline (|@|) f1 f2 =
+        Gui.after f1 f2

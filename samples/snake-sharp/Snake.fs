@@ -1,28 +1,34 @@
 module Snake
 
+// *****************************************************************************
+// * Import
+// *****************************************************************************
 open Xelmish.Model
 open Xelmish.Viewables
 open ImGuiNET
 open ImGuiNET.XNA.FSharp
 open Common
 
-let PLAY_FIELD_WIDTH = 200
-let PLAY_FIELD_HEIGHT = 200
+// *****************************************************************************
+// * Model
+// *****************************************************************************
 
-type Model = { X: int; Y: int; W: int; H: int; }
+type Model = { X: int; Y: int; W: int; H: int; MoveAmount: int }
 
-let init () = { X = 0; Y = 0; W = 100; H = 100; }
+let init () = { X = 0; Y = 0; W = 100; H = 100; MoveAmount = 1 }
 
-let viewModel = {| MoveAmount = ref 1; W = ref 100; H = ref 100 |}
+// *****************************************************************************
+
+let viewModel = {| MoveAmount = ref 1; W = ref 100; H = ref 100; TestInt = ref 0 |}
 
 let syncViewModel (model: Model) =
+    viewModel.MoveAmount.contents <- model.MoveAmount
     viewModel.W.contents <- model.W
     viewModel.H.contents <- model.H
 
-type Message =
-    | MoveVertical of dir: int
-    | MoveHorizontal of dir: int
-    | Resize of dir: int
+// *****************************************************************************
+// * Update
+// *****************************************************************************
 
 let outOfBounds model =
     model.X < 0
@@ -39,10 +45,23 @@ let moveVertical model dir =
 let moveHorizontal model dir =
     testOutOfBounds model { model with X = model.X + 2 * dir }
 
+// *****************************************************************************
+
+type Message =
+    | Force of newModel: Model
+    | MoveLeft
+    | MoveRight
+    | MoveUp
+    | MoveDown
+    | Resize of dir: int
+
 let update message model =
     match message with
-    | MoveVertical dir -> moveVertical model dir
-    | MoveHorizontal dir -> moveHorizontal model dir
+    | Force newModel -> newModel
+    | MoveLeft -> moveHorizontal model (-1 * model.MoveAmount)
+    | MoveRight -> moveHorizontal model model.MoveAmount
+    | MoveUp -> moveVertical model (-1 * model.MoveAmount)
+    | MoveDown -> moveVertical model model.MoveAmount
     | Resize dir ->
         { model with
             X = model.X - dir
@@ -50,34 +69,60 @@ let update message model =
             W = model.W + 2 * dir
             H = model.H + 2 * dir }
 
-let view model dispatch =
+// *****************************************************************************
+// * GUI View
+// *****************************************************************************
+
+let buildGui model dispatch =
     syncViewModel model
 
+    let set newModel = dispatch (Force newModel)
+
+    let setMoveAmount =
+        fun _ -> set { model with MoveAmount = viewModel.MoveAmount.Value }
+
+    let moveAmountSlider = fun () ->
+        if ImGui.SliderInt("", viewModel.MoveAmount, 0, 10) then setMoveAmount()
+
+    Gui.app
+        [ Gui.window
+              "UI State"
+              [ Gui.text "These tools only affect the UI state"
+
+                fun _ -> ImGui.SliderInt("Example Slider", viewModel.TestInt, -100, 100) |> ignore ]
+
+          Gui.window
+              "Game State"
+              [ Gui.text "These tools affect the Game state"
+
+                Gui.text "Move:"
+                +++ Gui.button " < " (fun _ -> dispatch MoveLeft)
+                +++ Gui.button " ^ " (fun _ -> dispatch MoveUp)
+                +++ Gui.button " v " (fun _ -> dispatch MoveDown)
+                +++ Gui.button " > " (fun _ -> dispatch MoveRight)
+
+                Gui.text "Move By:" +++ moveAmountSlider ]
+
+          Gui.statusBar
+              "Status Bar"
+              [ Gui.text $"Move By: {viewModel.MoveAmount.Value}"
+                fun _ -> Gui.text $"{ImGui.GetIO().Framerate} FPS" () ] ]
+
+// *****************************************************************************
+// * View
+// *****************************************************************************
+
+let view model dispatch =
     [
+        // Objects
+        imgui (buildGui model dispatch)
         image "head" Colour.White (model.W, model.H) (model.X, model.Y)
 
-        imgui (Gui.app [
-             Gui.window "SNAKEEEE" [
-                 Gui.text "snake, baybeee"
-
-                 //try (Gui.text $"{ImGui.GetIO().Framerate}") with | _ -> ()
-                 Gui.button " < " (fun _ -> dispatch (MoveHorizontal viewModel.MoveAmount.Value))
-                 ++ Gui.button " ^ " (fun _ -> dispatch (MoveHorizontal viewModel.MoveAmount.Value))
-                 ++ Gui.button " v " (fun _ -> dispatch (MoveHorizontal viewModel.MoveAmount.Value))
-                 ++ Gui.button " > " (fun _ -> dispatch (MoveHorizontal viewModel.MoveAmount.Value))
-                 fun _ -> ImGui.SliderInt ("test", viewModel.MoveAmount, 0, 10) |> ignore
-             ]
-
-             Gui.statusBar "Status Bar" [
-                Gui.text $"Move By: {viewModel.MoveAmount.Value}"
-                fun _ -> Gui.text $"{ImGui.GetIO().Framerate} FPS" ()
-            ]
-         ])
-
-        whilekeydown Keys.Up (fun _ -> dispatch (MoveVertical -1))
-        whilekeydown Keys.Down (fun _ -> dispatch (MoveVertical 1))
-        whilekeydown Keys.Left (fun _ -> dispatch (MoveHorizontal -1))
-        whilekeydown Keys.Right (fun _ -> dispatch (MoveHorizontal 1))
+        // I/O
+        whilekeydown Keys.Up (fun _ -> dispatch (MoveUp))
+        whilekeydown Keys.Down (fun _ -> dispatch (MoveDown))
+        whilekeydown Keys.Left (fun _ -> dispatch (MoveLeft))
+        whilekeydown Keys.Right (fun _ -> dispatch (MoveRight))
 
         whilekeydown Keys.OemPlus (fun _ -> dispatch (Resize 1))
         whilekeydown Keys.OemMinus (fun _ -> dispatch (Resize -1))
