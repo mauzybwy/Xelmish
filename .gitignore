@@ -333,3 +333,6 @@ samples/space-invaders-clone/highscore.txt
 
 # ImGui
 imgui.ini
+
+# LSP
+.cache
