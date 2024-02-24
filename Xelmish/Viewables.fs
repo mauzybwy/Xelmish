@@ -95,3 +95,7 @@ let onkeyup key event  =
         if not (inputs.keyboardState.IsKeyDown key)
         && inputs.lastKeyboardState.IsKeyDown key then 
             event ())
+
+let onfollowmouse event =
+    onupdate (fun inputs ->
+              event (inputs.mouseState.X, inputs.mouseState.Y))

@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Common.fs" />
+    <Compile Include="Player.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Elmish" Version="4.1.0" />
+    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.1.303" />
+    <PackageReference Include="ImGui.NET" Version="1.90.1.1" />
+    <PackageReference Include="MonoGame.Reload" Version="0.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Xelmish\Xelmish.fsproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Content/Art/*" CopyToOutputDirectory="Always" />
+  </ItemGroup>
+</Project>
