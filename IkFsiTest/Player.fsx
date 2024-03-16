@@ -1,5 +1,14 @@
 module Player
 
+#r "nuget:Elmish"
+#r "nuget:ImGUI.Net"
+#r "nuget:MonoGame.Framework.DesktopGL"
+#r "nuget:MonoGame.Reload"
+
+#I "../Xelmish/bin/Debug/net7.0"
+#r "Xelmish.dll"
+#r "ImGuiNET.XNA.FSharp.dll"
+
 // *****************************************************************************
 // * Import
 // *****************************************************************************
@@ -10,33 +19,31 @@ open ImGuiNET.XNA.FSharp
 //open Common
 open Microsoft.Xna.Framework.Input
 open System.Numerics
-open MonoGame.Extended
 
 // *****************************************************************************
 // * Types
 // *****************************************************************************
 
-type Segment = { A: Vector2; B: Vector2; _Length: float32 }
-type Body = list<Segment>
+type Position = { X: int; Y: int; }
+type Segment = { Head: Vector2; Tail: Vector2; _Length: float32 }
 
 // *****************************************************************************
 // * Model
 // *****************************************************************************
 
-type Model = { Body: Body }
+type Model = { Pos: Position; Body: Segment }
 
-let init (length: float32, numSegments: int ) =
-    { Body =
-      [for i in 1..numSegments ->
-       { _Length = length
-         A = Vector2(0f, 0f)
-         B = Vector2(0f, length) }] }
+let init (length: float32) =
 
-
+    { Pos = { X = 1; Y = 1 }
+      Body =
+        { _Length = length
+          Head = Vector2(0f, 0f)
+          Tail = Vector2(0f, length) } }
 
 // *****************************************************************************
 
-let viewModel = {| |}
+let viewModel = {|  |}
 
 let syncViewModel (model: Model) =
     ()
@@ -45,16 +52,15 @@ let syncViewModel (model: Model) =
 // * Update Helpers
 // *****************************************************************************
 
-let rec follow (body: Body) (target: Vector2) =
-    let segment = body.Head
+let follow model x y =
+    let target = Vector2(x, y)
+    let direction = target - model.Body.Tail
+    // printfn $"{direction.X} {direction.Y}"
+    let normalized = Vector2.Normalize(direction)
+    let newTail = -1f * model.Body._Length * normalized + target
+    let newHead = Vector2(model.Body.Head.X + direction.X, model.Body.Head.Y + direction.Y)
 
-    let direction = Vector2.Normalize(target - segment.B)
-    let newTail = -1f * segment._Length * direction + target
-
-    let newSegment = { segment with  A = target; B = newTail }
-    match body.Tail with
-    | [] -> [newSegment]
-    | _ -> newSegment::(follow body.Tail newTail)
+    { model with Body.Head = newHead; Body.Tail = newTail }
 
 // *****************************************************************************
 // * Update
@@ -62,14 +68,12 @@ let rec follow (body: Body) (target: Vector2) =
 
 type Message =
     | Force of newModel: Model
-    | Follow of Vector2
+    | Follow of int * int
 
 let update message model =
     match message with
     | Force newModel -> newModel
-    | Follow (target: Vector2) ->
-        let newBody = follow model.Body target
-        { model with Body = newBody }
+    | Follow (x, y) -> follow model (float32 x) (float32 y)
 
 // *****************************************************************************
 // * GUI View
@@ -83,8 +87,7 @@ let buildGui model dispatch =
     Gui.app
         [ Gui.window
               "Game State"
-              [ Gui.text $"A: {model.Body.Head.A.X} {model.Body.Head.A.Y}"
-                Gui.text $"B: {model.Body.Head.B.X} {model.Body.Head.B.Y}"]
+              [ Gui.text "These tools affect the Game state" ]
 
           Gui.statusBar
               "Status Bar"
@@ -99,14 +102,13 @@ let buildGui model dispatch =
 let view model dispatch =
     [
         // Objects
-        imgui (buildGui model dispatch)
-
-        yield! [for (idx, segment) in List.indexed(model.Body) ->
-                let thickness = (float32 (model.Body.Length - idx) / (float32 model.Body.Length / 10.0f) )
-                line Colour.Yellow segment.A segment.B thickness]
+        //imgui (buildGui model dispatch)
+        //image "player" Colour.White (100, 100) (model.Pos.X , model.Pos.Y)
+        colour Colour.Pink (5,5) (int model.Body.Head.X, int model.Body.Head.Y)
+        colour Colour.Yellow (5,5) (int model.Body.Tail.X, int model.Body.Tail.Y)
 
         // I/O
-        onfollowmouse (fun (x: int, y: int) -> dispatch (Follow(Vector2(float32 x, float32 y))))
+        onfollowmouse (fun (x: int, y: int) -> dispatch (Follow(x, y)))
 
         onkeydown Keys.Escape exit
     ]

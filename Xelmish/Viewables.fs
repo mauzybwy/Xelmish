@@ -6,6 +6,7 @@ open Microsoft.Xna.Framework
 open Microsoft.Xna.Framework.Graphics
 open Microsoft.Xna.Framework.Input
 open Model
+open MonoGame.Extended
 
 /// An alias for the .NET Queue of string class. For 'play once' things like sounds, this
 /// is useful to add to your model in order to play effects properly. See the space invaders sample for usage
@@ -28,6 +29,10 @@ let setSmoothSampling () =
 let colour colour (width, height) (x, y) = 
     OnDraw (fun loadedAssets _ spriteBatch -> 
         spriteBatch.Draw(loadedAssets.whiteTexture, rect x y width height, colour))
+
+let line colour point1 point2 (thickness: float32)=
+    OnDraw (fun _ _ spriteBatch ->
+        ShapeExtensions.DrawLine(spriteBatch, point1, point2, colour, thickness))
 
 /// Draw the image specified by the given key
 let image key colour (width, height) (x, y) = 

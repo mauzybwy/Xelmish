@@ -27,6 +27,7 @@
     <PackageReference Include="Elmish" Version="4.1.0" />
     <PackageReference Include="MonoGame.Aseprite" Version="5.1.2" />
     <PackageReference Include="ImGui.NET" Version="1.90.1.1" />
+    <PackageReference Include="MonoGame.Extended" Version="3.8.0" />
     <ProjectReference Include="..\ImGuiNET.XNA\ImGuiNET.XNA.csproj" />
     <ProjectReference Include="..\ImGuiNET.XNA.FSharp\ImGuiNET.XNA.FSharp.fsproj" />
 
